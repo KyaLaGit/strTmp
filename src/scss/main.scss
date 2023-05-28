@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &.lock {
+        overflow: hidden;
+    }
+}
+
+.main {
+    flex: 1 1 auto;
+}

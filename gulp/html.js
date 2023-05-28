@@ -8,7 +8,7 @@ export const html = () => {
             })
         }))
         .pipe(fileinclude())
-        .pipe(glob.plugin.replace('../img/', 'img/'))
+        .pipe(glob.plugin.replace(/(\.\.\/)*img\//g, './img/'))
         .pipe(glob.dest('dist/'))
         .pipe(glob.plugin.browsersync.stream())
 }

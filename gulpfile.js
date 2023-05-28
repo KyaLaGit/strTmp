@@ -31,7 +31,7 @@ import { scss } from './gulp/scss.js'
 import { js } from './gulp/js.js'
 import { img } from './gulp/img.js'
 import { iconfont } from './gulp/iconfont.js'
-import { font, cssFile } from './gulp/font.js'
+import { font, fontCssFile } from './gulp/font.js'
 
 // Watchers
 function watcher() {
@@ -44,11 +44,12 @@ function watcher() {
 
 // Vars
 const transferFiles = gulp.series(cleaner, copy)
-const fonts = gulp.parallel(iconfont, gulp.series(font, cssFile))
+const fonts = gulp.parallel(font, iconfont)
+const fontsCss = gulp.parallel(fontCssFile)
 const serverWatcher = gulp.parallel(watcher, server)
 const failsScript = gulp.parallel(html, scss, js, img)
 
-const mainScript = gulp.series(transferFiles, failsScript, fonts, serverWatcher)
+const mainScript = gulp.series(transferFiles, fonts, failsScript, fontsCss, serverWatcher)
 
 // Tasks call
 gulp.task('default', mainScript)

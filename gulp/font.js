@@ -3,28 +3,33 @@ import gulpttf2woff2 from 'gulp-ttf2woff2'
 import fs from 'fs'
 import path from 'path'
 
-export const font = () => {
-    return glob.src('src/font/*.ttf')
-        .pipe(glob.plugin.plumber({
-            errorHandler: glob.plugin.notify.onError({
-                title: 'FONT'
-            })
-        }))
-        .pipe(gulpttf2woff({ clone: true }))
-        .pipe(gulpttf2woff2({ clone: true }))
-        .pipe(glob.dest('dist/font/'))
+export const font = cb => {
+    fs.open(path.resolve('dist', 'font'), 'r', (err) => {
+        if (err) {
+            return glob.src('src/font/*.ttf')
+                .pipe(glob.plugin.plumber({
+                    errorHandler: glob.plugin.notify.onError({
+                        title: 'FONT'
+                    })
+                }))
+                .pipe(gulpttf2woff({ clone: true }))
+                .pipe(gulpttf2woff2({ clone: true }))
+                .pipe(glob.dest('dist/font/'))
+        } else {
+            console.log('-----Шрифт уже конвертирован.')
+        }
+    })
+
+    cb()
 }
 
-export const cssFile = function (cb) {
-
-    fs.access(path.resolve('dist', 'css', 'font.css'), (err) => {
+export const fontCssFile = cb => {
+    fs.open(path.resolve('dist', 'css', 'font.css'), 'r', (err) => {
         if (err) {
             let tamplate = ''
 
             fs.readdir(path.resolve('dist', 'font'), (err, files) => {
-                if (err) {
-                    console.log(err)
-                } else {
+                if (!err) {
                     let prevFileName = null
 
                     files.forEach(file => {
@@ -78,6 +83,8 @@ export const cssFile = function (cb) {
                     })
                 }
             })
+        } else {
+            console.log('-----font.css уже существует.')
         }
     })
 

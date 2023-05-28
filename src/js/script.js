@@ -1,2 +1,1 @@
-// import { init } from './module.js'
-// init()
+import * as dataInit from './module.js'

@@ -1,0 +1,43 @@
+.shm {
+    @media (max-width: 767.98px) {
+        &.close {
+            .shm__list {
+                margin-top: -100%;
+            }
+
+            .shm__title {
+                &::after {
+                    transform: translate(0px, -50%) rotate(0deg);
+                }
+            }
+        }
+
+        &__title {
+            line-height: 150%;
+            user-select: none;
+            cursor: pointer;
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 0;
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 8px solid #000;
+
+                transform: translate(0px, -50%) rotate(180deg);
+                transition: all 0.2s ease;
+            }
+        }
+
+        &__list-wrap {
+            overflow: hidden;
+        }
+
+        &__list {
+            transition: all 0.4s ease;
+        }
+    }
+}

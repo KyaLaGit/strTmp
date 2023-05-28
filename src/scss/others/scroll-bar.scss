@@ -1,6 +1,10 @@
+$scrollBarColor: #8b8b8b;
+$scrollBarBgColor: #c9c9c9;
+$scrollBarBorderColor: #6b6b6b;
+
 * {
     scrollbar-width: thin;
-    scrollbar-color: #8b8b8b #c9c9c9;
+    scrollbar-color: $scrollBarColor $scrollBarBgColor;
 }
 
 *::-webkit-scrollbar {
@@ -8,10 +12,10 @@
     width: 12px;
 }
 *::-webkit-scrollbar-track {
-    background: #c9c9c9;
+    background: $scrollBarBgColor;
 }
 *::-webkit-scrollbar-thumb {
-    background-color: #8b8b8b;
+    background-color: $scrollBarColor;
     border-radius: 5px;
-    border: 2px solid #6b6b6b;
+    border: 0px solid $scrollBarBorderColor;
 }

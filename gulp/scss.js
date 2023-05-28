@@ -2,7 +2,6 @@ import dartSass from 'sass'
 import gulpSass from 'gulp-sass'
 import gulpAutoprefixer from 'gulp-autoprefixer'
 import gulpGroupCssMediaQueries from 'gulp-group-css-media-queries'
-import gulpCleanCss from 'gulp-clean-css'
 
 const sass = gulpSass(dartSass)
 
@@ -14,16 +13,11 @@ export const scss = () => {
             })
         }))
         .pipe(sass())
+        .pipe(glob.plugin.replace(/(\.\.\/)*img\//g, '../img/'))
         .pipe(gulpGroupCssMediaQueries())
         .pipe(gulpAutoprefixer({
-            grid: true,
             overrideBrowserslist: ['last 3 versions'],
             cascade: false,
-        }))
-        .pipe(glob.dest('dist/css/'))
-        .pipe(gulpCleanCss())
-        .pipe(glob.plugin.rename({
-            extname: '.min.css'
         }))
         .pipe(glob.dest('dist/css/'))
         .pipe(glob.plugin.browsersync.stream())

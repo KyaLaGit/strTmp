@@ -1,3 +1,23 @@
+export function dataHeaderFixed() {
+    const header = document.querySelector('[data-header-fixed]')
+
+    if (header) {
+        let headerOption = header.getAttribute('data-header-fixed')
+        headerOption === '' ? headerOption = 0.5 : headerOption *= 1
+        const headerScroll = header.getBoundingClientRect().top + (header.getBoundingClientRect().height * headerOption)
+
+        document.addEventListener('scroll', e => {
+            console.log("~ headerScroll", headerScroll)
+            if (window.scrollY > headerScroll) {
+                header.classList.add('fixed')
+            } else if (window.scrollY < headerScroll) {
+                header.classList.remove('fixed')
+            }
+        })
+    }
+}
+// [data-header-fixed]
+
 export function dataBurger() {
     const burger = document.querySelector('[data-burger]')
 
@@ -145,7 +165,7 @@ export function dataSelect() {
             if (elem.closest('[data-select-link]') || elem.closest('[data-select-item]')) {
                 const parent = elem.closest('[data-select]')
                 const list = parent.querySelector('[data-select-list]')
-                const value = parent.querySelector('[data-select-value]')
+                const link = parent.querySelector('[data-select-link]')
                 const selectAll = parent.querySelectorAll('[data-select-item]')
 
                 selectListAll.forEach(selectList => {
@@ -163,7 +183,7 @@ export function dataSelect() {
                         }
                     })
                     elem.classList.add('selected')
-                    value.textContent = elem.textContent
+                    link.textContent = elem.textContent
                 }
             } else {
                 selectListAll.forEach(list => {
@@ -175,7 +195,7 @@ export function dataSelect() {
         }
     }
 }
-// [data-select], [data-select-link], [data-select-list], [data-select-value]
+// [data-select], [data-select-link], [data-select-list]
 
 export function dataSHM() {
     const SHMItems = document.querySelectorAll('[data-shm]')
@@ -237,3 +257,15 @@ export function dataSHM() {
     }
 }
 // [data-shm], [data-shm-title], [data-shm-list]
+
+
+
+
+
+
+
+
+
+
+
+
