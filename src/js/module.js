@@ -5,7 +5,7 @@
 
 
 // SELECT ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// [data-select], [data-select-link], [data-select-list] ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// [data-select], [data-select-link], [data-select-list], [data-select-value](optional) ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // import { dataSelect } from './modules/data.js'
 // dataSelect()
 
@@ -23,7 +23,7 @@
 
 
 // SHM(show and hide menu) ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// [data-shm], [data-shm-title](a), [data-shm-list](a) ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// [data-shm], [data-shm-link], [data-shm-content],  [data-shm-wrap](optional) ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // import { dataSHM } from './modules/data.js'
 // dataSHM()
 
@@ -40,44 +40,13 @@
 // dataPopup()
 
 
-// MLIDER ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// import { Mlider } from './modules/Mlider-v0.1.js'
-// const slider = new Mlider(
-//     // Classes for slider elements
-//     {
-//         sliderSelector: '.mlider',
-//         slideSelector: '.slide-mlider',
+// ANIMATION ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// [data-anim] ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// import { dataAnim } from './modules/data.js'
+// dataAnim()
 
-//         prevBtnSelector: '.mlider__prev-btn',
-//         nextBtnSelector: '.mlider__next-btn',
-//         dotSelector: '.mlider__dot',
-//         counterSelector: '.mlider__counter',
 
-//         currentSelector: '.current',
-//     },
-
-//     // Slider options
-//     {
-//         // loop[true or false]
-//         infinity: false,
-//         // slide width [auto or castom](castom --> can use preViewSlides)
-//         slideSize: 'castom',
-//         // visible slides [quantity] (only with slideSize: custom)
-//         preViewSlides: 1.2,
-//         // slide position in visible area[left, center, right or auto]
-//         slidePosition: 'center',
-//         // time of animation(change slide)[ms]
-//         animationTime: 400,
-
-//         // using column-gap(gap displaces other slides in visible area)[true] OR
-//         // padding and negative margin(not displaces other slides in visible area)[false]
-//         saveSlideSize: true,
-//         // distance between slides[px]
-//         gap: 20,
-
-//         // use overflow: hidden on slider-wrapper[true or false]
-//         overflowHidden: true,
-//         // include counter in dots(index number in dot)[true or false]
-//         counterInDots: false,
-//     }
-// )
+// TRANSFER ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// [data-tsf=".box2,787,0"] ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// import { dataTransfer } from './modules/data.js'
+// dataTransfer()

@@ -1,7 +1,7 @@
 import fileinclude from 'gulp-file-include'
 
 export const html = () => {
-    return glob.src('src/*.html')
+    return glob.src('src/html/*.html')
         .pipe(glob.plugin.plumber({
             errorHandler: glob.plugin.notify.onError({
                 title: 'HTML'

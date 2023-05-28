@@ -1,1 +1,1 @@
-import * as dataInit from './module.js'
+// import * as dataInit from './module.js'

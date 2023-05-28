@@ -166,17 +166,16 @@ export function dataSelect() {
 
             if (elem.closest('[data-select-link]') || elem.closest('[data-select-item]')) {
                 const parent = elem.closest('[data-select]')
-                const list = parent.querySelector('[data-select-list]')
-                const link = parent.querySelector('[data-select-link]')
+                const value = parent.querySelector('[data-select-value]') || parent.querySelector('[data-select-link]')
                 const selectAll = parent.querySelectorAll('[data-select-item]')
 
-                selectListAll.forEach(selectList => {
-                    if (selectList.classList.contains('open') && selectList !== list) {
-                        selectList.classList.remove('open')
+                selectWrapAll.forEach(selectWrap => {
+                    if (selectWrap.classList.contains('open') && selectWrap !== parent) {
+                        selectWrap.classList.remove('open')
                     }
                 })
 
-                list.classList.toggle('open')
+                parent.classList.toggle('open')
 
                 if (elem.closest('[data-select-item]')) {
                     selectAll.forEach(select => {
@@ -184,65 +183,47 @@ export function dataSelect() {
                             select.classList.remove('selected')
                         }
                     })
-                    elem.classList.add('selected')
-                    link.textContent = elem.textContent
+                    elem.closest('[data-select-item]').classList.add('selected')
+                    value.textContent = elem.closest('[data-select-item]').textContent
                 }
             } else {
-                selectListAll.forEach(list => {
-                    if (list.classList.contains('open')) {
-                        list.classList.remove('open')
+                selectWrapAll.forEach(selectWrap => {
+                    if (selectWrap.classList.contains('open')) {
+                        selectWrap.classList.remove('open')
                     }
                 })
             }
         }
     }
 }
-// [data-select], [data-select-link], [data-select-list]
+// [data-select], [data-select-link], [data-select-list], [data-select-value](optional)
 
 export function dataSHM() {
-    const SHMItems = document.querySelectorAll('[data-shm]')
+    const shmItems = document.querySelectorAll('[data-shm]')
 
-    if (SHMItems.length > 0) {
-        SHMItems.forEach(item => {
+    if (shmItems.length > 0) {
+        shmItems.forEach(item => {
             item.classList.add('shm', 'close')
-            let chooseTitle = false
-            let chooseList = false
+            let content = null
 
-            // Проверка на уже заданные data аттрибуты
-            for (let i = 0; i < item.children.length; i++) {
-                const children = item.children[i]
-
-                if (typeof (children.getAttribute('data-shm-title')) === 'string') {
-                    chooseTitle = true
-                    children.classList.add('shm__title')
-                } else if (typeof (children.getAttribute('data-shm-list')) === 'string') {
-                    chooseList = true
-                    children.classList.add('shm__list')
-                }
+            // Проверка data аттрибутов
+            if (item.querySelector('[data-shm-link]')) {
+                item.querySelector('[data-shm-link]').classList.add('shm__link')
+            } else {
+                console.log('data-shm-link -> undefined', item)
+            }
+            if (item.querySelector('[data-shm-content]')) {
+                content = item.querySelector('[data-shm-content]')
+                content.classList.add('shm__content')
+            } else {
+                console.log('data-shm-content -> undefined', item)
             }
 
-            // Присвоение соответственных классов
-            for (let i = 0; i < item.children.length; i++) {
-                const children = item.children[i]
-                const childrenClasses = children.classList.value.split(' ')
-
-                for (let i = 0; i < childrenClasses.length; i++) {
-                    const childrenClass = childrenClasses[i]
-
-                    if (!chooseTitle && childrenClass.includes('title')) {
-                        children.classList.add('shm__title')
-                    } else if (!chooseList && childrenClass.includes('list')) {
-                        children.classList.add('shm__list')
-                    }
-                }
-            }
-
-            // Классы и оболочка для list
-            let list = item.querySelector('.shm__list')
-            list.insertAdjacentHTML('beforebegin', `<div class="shm__list-wrap"></div>`)
-            list.remove()
-            const listWrap = item.querySelector('.shm__list-wrap')
-            listWrap.insertAdjacentHTML('afterbegin', list.outerHTML)
+            // Оболочка для content
+            content.insertAdjacentHTML('beforebegin', `<div class="shm__content-wrap"></div>`)
+            const contentWrap = item.querySelector('.shm__content-wrap')
+            contentWrap.insertAdjacentHTML('afterbegin', content.outerHTML)
+            content.remove()
         })
 
         document.addEventListener('click', eventFn)
@@ -250,15 +231,34 @@ export function dataSHM() {
         function eventFn(e) {
             const elem = e.target
 
-            if (window.innerWidth < 425) {
-                if (e.type === 'click' && elem.closest('.shm__title')) {
-                    elem.closest('.shm').classList.toggle('close')
+            if (e.type === 'click' && elem.closest('.shm__link')) {
+                const parent = elem.closest('.shm')
+                const content = parent.querySelector('.shm__content-wrap')
+                const contentHeight = content.scrollHeight
+
+                if (parent.closest('[data-shm-wrap]')) {
+                    const items = parent.closest('[data-shm-wrap]').querySelectorAll('[data-shm]')
+                    items.forEach(item => {
+                        if (item !== parent) {
+                            item.classList.add('close')
+                            item.querySelector('.shm__content-wrap').style.maxHeight = 0 + 'px'
+                        }
+                    })
+                }
+
+
+                if (!parent.classList.contains('close')) {
+                    parent.classList.add('close')
+                    content.style.maxHeight = 0 + 'px'
+                } else if (parent.classList.contains('close')) {
+                    parent.classList.remove('close')
+                    content.style.maxHeight = contentHeight + 'px'
                 }
             }
         }
     }
 }
-// [data-shm], [data-shm-title], [data-shm-list]
+// [data-shm], [data-shm-link], [data-shm-content],  [data-shm-wrap](optional)
 
 export function dataPopup() {
     const popups = document.querySelectorAll('[data-popup-content]')
@@ -294,3 +294,141 @@ export function dataPopup() {
     }
 }
 // [data-popup], [data-popup-link], [data-popup-content]
+
+export function dataAnim() {
+    const dataAnimationItems = document.querySelectorAll('[data-anim]')
+
+    if (dataAnimationItems.length > 0) {
+
+        let options = {
+            root: null,
+            threshold: 1
+        }
+
+        let callback = function (entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('anim')
+                }
+            })
+        }
+
+        let observer = new IntersectionObserver(callback, options)
+
+        dataAnimationItems.forEach(item => {
+            item.classList.add('animation')
+            observer.observe(item)
+        })
+
+    }
+}
+// [data-anim]
+
+export function dataTransfer() {
+    const tsfElems = document.querySelectorAll('[data-tsf]')
+    const tsfElemsPar = []
+
+    if (tsfElems.length > 0) {
+        tsfElems.forEach((tsfElem, index) => {
+            const tsfElemPar = tsfElem.getAttribute('data-tsf').split(',')
+
+            tsfElemsPar.push(
+                {
+                    element: tsfElem,
+                    screenSize: Number(tsfElemPar[1].trim()),
+                    currentPar: currentElemPar(tsfElem),
+                    newPar: newElemPar(document.querySelector(tsfElemPar[0].trim()), tsfElemPar[2].trim()),
+                    elemInside: false,
+                    index: index,
+                }
+            )
+            tsfElem.setAttribute('data-tsf-index', index)
+
+            function currentElemPar(elem) {
+                let par = {}
+                par.parent = elem.parentElement
+                const parentChilds = Array.from(elem.parentElement.children)
+
+                for (let i = 0; i < parentChilds.length; i++) {
+                    const child = parentChilds[i]
+
+                    if (child === elem) {
+                        if (i === 0) {
+                            par.pos = 'start'
+                            break
+                        } else if (i > parentChilds.length - 1) {
+                            par.pos = 'end'
+                            break
+                        } else {
+                            par.pos = i
+                            break
+                        }
+                    }
+                }
+
+                return par
+            }
+
+            function newElemPar(parent, position) {
+                let par = {}
+                par.parent = parent
+
+                if (isNaN(Number(position))) {
+                    par.pos = position
+                } else if (Number(position) === 0) {
+                    par.pos = 'start'
+                } else if (Number(position) > parent.children.length - 1) {
+                    par.pos = 'end'
+                } else {
+                    par.pos = Number(position)
+                }
+
+                return par
+            }
+        })
+
+        window.addEventListener('resize', eventFn)
+        document.onload = eventFn()
+        function eventFn() {
+            const screenSize = window.innerWidth
+
+            tsfElemsPar.forEach(tsfElemPar => {
+
+                // перенос в новое место
+                if (screenSize < tsfElemPar.screenSize) {
+                    if (!tsfElemPar.elemInside) {
+                        document.querySelector(`[data-tsf-index='${tsfElemPar.index}']`).remove()
+                        if (tsfElemPar.newPar.pos === 'start') {
+                            tsfElemPar.newPar.parent.insertAdjacentHTML('afterbegin', tsfElemPar.element.outerHTML)
+                        } else if (tsfElemPar.newPar.pos === 'end') {
+                            tsfElemPar.newPar.parent.insertAdjacentHTML('beforeend', tsfElemPar.element.outerHTML)
+                        } else if (typeof (tsfElemPar.newPar.pos) === 'number') {
+                            let orient = tsfElemPar.newPar.parent.children[tsfElemPar.newPar.pos]
+                            orient ? orient = orient.previousElementSibling : orient = Array.from(tsfElemPar.newPar.parent.children)[tsfElemPar.newPar.parent.children.length - 1]
+                            orient.insertAdjacentHTML('afterend', tsfElemPar.element.outerHTML)
+                        }
+                        tsfElemPar.elemInside = true
+                    }
+                }
+
+                // обратный перенос
+                if (screenSize > tsfElemPar.screenSize) {
+                    if (tsfElemPar.elemInside) {
+                        document.querySelector(`[data-tsf-index='${tsfElemPar.index}']`).remove()
+                        if (tsfElemPar.currentPar.pos === 'start') {
+                            tsfElemPar.currentPar.parent.insertAdjacentHTML('afterbegin', tsfElemPar.element.outerHTML)
+                        } else if (tsfElemPar.currentPar.pos === 'end') {
+                            tsfElemPar.currentPar.parent.insertAdjacentHTML('beforeend', tsfElemPar.element.outerHTML)
+                        } else if (typeof (tsfElemPar.currentPar.pos) === 'number') {
+                            let orient = tsfElemPar.currentPar.parent.children[tsfElemPar.currentPar.pos]
+                            orient ? orient = orient.previousElementSibling : orient = Array.from(tsfElemPar.currentPar.parent.children)[tsfElemPar.currentPar.parent.children.length - 1]
+                            orient.insertAdjacentHTML('afterend', tsfElemPar.element.outerHTML)
+                        }
+                        tsfElemPar.elemInside = false
+                    }
+                }
+            })
+        }
+    }
+}
+// [data-tsf=".box2,787,0"]

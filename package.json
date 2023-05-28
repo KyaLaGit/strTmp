@@ -1,8 +1,8 @@
 {
   "name": "strtmp",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "type": "module",
   "scripts": {},
   "author": "Max",
@@ -13,9 +13,7 @@
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean": "^0.4.0",
     "gulp-file-include": "^2.3.0",
-    "gulp-fonter": "^0.3.0",
     "gulp-group-css-media-queries": "^1.2.2",
-    "gulp-iconfont": "^11.0.1",
     "gulp-notify": "^4.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-rename": "^2.0.0",
@@ -27,8 +25,5 @@
     "sass": "^1.55.0",
     "webpack": "^5.74.0",
     "webpack-stream": "^7.0.0"
-  },
-  "dependencies": {
-    "gulp-iconfont-css": "^3.0.0"
   }
 }

@@ -12,8 +12,14 @@ body {
     color: #000;
 }
 
+/*------------------------------------------------------------local classes------------------------------------------------------------*/
+
 .container {
     max-width: calc(1000 / 16 * 1rem);
     padding: 0 calc(15 / 16 * 1rem);
     margin: 0 auto;
 }
+
+// .animation {
+//     opacity: 0;
+// }

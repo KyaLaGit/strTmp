@@ -1,18 +1,17 @@
 .shm {
     @media (max-width: calc(424.98 / 16 * 1rem)) {
         &.close {
-            .shm__list {
-                margin-top: -100%;
-            }
-
-            .shm__title {
+            .shm__link {
                 &::after {
                     transform: translate(0px, -50%) rotate(0deg);
                 }
             }
+            .shm__content-wrap {
+                max-height: 0;
+            }
         }
 
-        &__title {
+        &__link {
             line-height: 150%;
             user-select: none;
             cursor: pointer;
@@ -23,20 +22,18 @@
                 position: absolute;
                 top: 50%;
                 right: 0;
-                border-left: calc(6 / 16 * 1rem) solid transparent;
-                border-right: calc(6 / 16 * 1rem) solid transparent;
-                border-top: calc(8 / 16 * 1rem) solid #000;
+                border-left: calc(4 / 16 * 1rem) solid transparent;
+                border-right: calc(4 / 16 * 1rem) solid transparent;
+                border-top: calc(6 / 16 * 1rem) solid $blueColor;
 
                 transform: translate(0px, -50%) rotate(180deg);
                 transition: all 0.2s ease;
             }
         }
 
-        &__list-wrap {
+        &__content-wrap {
             overflow: hidden;
-        }
 
-        &__list {
             transition: all 0.4s ease;
         }
     }
