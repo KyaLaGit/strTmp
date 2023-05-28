@@ -1,0 +1,22 @@
+@import 'null.scss';
+@import 'settings.scss';
+@import 'bem.scss';
+
+/*------------------------------------------------------------wrapper------------------------------------------------------------*/
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &.lock {
+        overflow: hidden;
+    }
+}
+
+/*------------------------------------------------------------main------------------------------------------------------------*/
+.main {
+    flex: 1 1 auto;
+}
+
+@import 'header.scss';
+@import 'footer.scss';

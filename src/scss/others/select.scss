@@ -1,0 +1,43 @@
+.select {
+    position: relative;
+
+    &__link {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &__list {
+        position: absolute;
+        top: 80%;
+        left: 0;
+        background: rgb(224, 224, 224);
+
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.2s ease;
+        pointer-events: none;
+
+        &.open {
+            visibility: visible;
+            opacity: 1;
+            top: 100%;
+            pointer-events: all;
+        }
+    }
+
+    &__item {
+        padding: 5px 10px;
+        cursor: pointer;
+        user-select: none;
+
+        &.selected {
+            background: rgb(179, 179, 179);
+        }
+
+        @media (any-hover: hover) {
+            &:hover {
+                background: rgb(179, 179, 179);
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+.hero {
+    &__container {
+        padding-top: 100px;
+
+        display: flex;
+        justify-content: center;
+        column-gap: 140px;
+    }
+
+    &__ddMenu {
+        background: rgb(230, 230, 230);
+    }
+}
+
+.ddMenu {
+    position: relative;
+
+    &__link {
+        padding: 10px 25px;
+        cursor: pointer;
+        user-select: none;
+
+        @media (any-hover: hover) {
+            &:hover {
+                color: rgb(78, 78, 78);
+            }
+        }
+    }
+
+    &__list {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        background: rgb(196, 196, 196);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: all 0.2s ease;
+
+        &.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+    }
+
+    &__item {
+        padding: 5px 15px;
+        cursor: pointer;
+        user-select: none;
+
+        @media (any-hover: hover) {
+            &:hover {
+                background: rgb(121, 121, 121);
+            }
+        }
+    }
+}
