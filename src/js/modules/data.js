@@ -71,6 +71,8 @@ export function dataPromt() {
                 promt.classList.add('promt_left')
             } else if (dataValue === 'right') {
                 promt.classList.add('promt_right')
+            } else if (dataValue === 'own') {
+                promt.classList.add('promt_own')
             }
         })
     }
@@ -179,7 +181,7 @@ export function dataSelect() {
                 if (elem.closest('[data-select-item]')) {
                     selectAll.forEach(select => {
                         if (select.classList.contains('selected')) {
-                            select.classList.remove('open')
+                            select.classList.remove('selected')
                         }
                     })
                     elem.classList.add('selected')
@@ -248,7 +250,7 @@ export function dataSHM() {
         function eventFn(e) {
             const elem = e.target
 
-            if (window.innerWidth < 768) {
+            if (window.innerWidth < 425) {
                 if (e.type === 'click' && elem.closest('.shm__title')) {
                     elem.closest('.shm').classList.toggle('close')
                 }
@@ -258,14 +260,37 @@ export function dataSHM() {
 }
 // [data-shm], [data-shm-title], [data-shm-list]
 
+export function dataPopup() {
+    const popups = document.querySelectorAll('[data-popup-content]')
 
+    if (popups.length > 0) {
+        document.addEventListener('click', eventFn)
 
+        function eventFn(e) {
+            const elem = e.target
 
+            if (elem.closest('[data-popup-link]')) {
+                const popupLink = elem.closest('[data-popup-link]')
 
+                if (!popupLink.getAttribute('data-popup-link')) {
+                    const popupContent = popupLink.closest('[data-popup]').querySelector('[data-popup-content]')
+                    popupContent.classList.add('open')
+                } else if (popupLink.getAttribute('data-popup-link')) {
+                    const popupContent = document.querySelector(`[data-popup-content="${popupLink.getAttribute('data-popup-link')}"]`)
+                    popupContent.classList.add('open')
+                }
+            }
 
+            if (elem.matches('[data-popup-content]')) {
+                const popupContent = elem.closest('[data-popup-content]')
 
-
-
-
-
-
+                if (!popupContent.getAttribute('data-popup-content')) {
+                    popupContent.classList.remove('open')
+                } else if (popupContent.getAttribute('data-popup-content')) {
+                    popupContent.classList.remove('open')
+                }
+            }
+        }
+    }
+}
+// [data-popup], [data-popup-link], [data-popup-content]

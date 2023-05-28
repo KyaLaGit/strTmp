@@ -4,7 +4,7 @@
     }
 
     &__link {
-        padding: 5px 15px;
+        padding: calc(5 / 16 * 1rem) calc(15 / 16 * 1rem);
         cursor: pointer;
         user-select: none;
 

@@ -1,5 +1,5 @@
 .shm {
-    @media (max-width: 767.98px) {
+    @media (max-width: calc(424.98 / 16 * 1rem)) {
         &.close {
             .shm__list {
                 margin-top: -100%;
@@ -23,9 +23,9 @@
                 position: absolute;
                 top: 50%;
                 right: 0;
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-top: 8px solid #000;
+                border-left: calc(6 / 16 * 1rem) solid transparent;
+                border-right: calc(6 / 16 * 1rem) solid transparent;
+                border-top: calc(8 / 16 * 1rem) solid #000;
 
                 transform: translate(0px, -50%) rotate(180deg);
                 transition: all 0.2s ease;

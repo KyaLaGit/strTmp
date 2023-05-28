@@ -15,5 +15,4 @@ export const js = () => {
         }))
         .pipe(glob.dest('dist/js/'))
         .pipe(glob.plugin.browsersync.stream())
-
 }
